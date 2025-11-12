@@ -5,17 +5,36 @@
 
 / {
     chosen {
-        // Disable kscan completely for testing
-        // zmk,kscan = &kscan0;
+        zmk,kscan = &kscan0;
     };
-    
-    /* Temporarily disabled to test if GPIO is causing crashes
+
     kscan0: kscan {
-        compatible = "zmk,kscan-gpio-direct";
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source;
         
-        input-gpios
-            = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+        diode-direction = "col2row";
+        
+        row-gpios
+            = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // r1: P0.10
+            , <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // r2: P1.11
+            , <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // r3: P1.13
+            , <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // r4: P1.15
+            , <&gpio0 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // r5: P0.02
+            ;
+        
+        col-gpios
+            = <&gpio1 0  GPIO_ACTIVE_HIGH>  // c1: P1.00
+            , <&gpio0 11 GPIO_ACTIVE_HIGH>  // c2: P0.11
+            , <&gpio1 4  GPIO_ACTIVE_HIGH>  // c3: P1.04
+            , <&gpio0 22 GPIO_ACTIVE_HIGH>  // c4: P0.22
+            , <&gpio0 24 GPIO_ACTIVE_HIGH>  // c5: P0.24
+            , <&gpio1 6  GPIO_ACTIVE_HIGH>  // c6: P1.06
+            , <&gpio0 9  GPIO_ACTIVE_HIGH>  // c7: P0.09
+            , <&gpio1 1  GPIO_ACTIVE_HIGH>  // c8: P1.01
+            , <&gpio1 2  GPIO_ACTIVE_HIGH>  // c9: P1.02
+            , <&gpio0 20 GPIO_ACTIVE_HIGH>  // c10: P0.20
+            , <&gpio0 17 GPIO_ACTIVE_HIGH>  // c11: P0.17
+            , <&gpio1 7  GPIO_ACTIVE_HIGH>  // c12: P1.07
             ;
     };
-    */
 };
