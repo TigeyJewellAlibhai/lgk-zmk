@@ -1,0 +1,11 @@
+# Copyright (c) 2025
+# SPDX-License-Identifier: MIT
+
+file_format: "1"
+id: custom_keyboard
+name: Custom Keyboard
+type: shield
+url: https://github.com/TigeyJewellAlibhai/lgk-zmk
+requires: [nice_nano_v2]
+features:
+  - keys
