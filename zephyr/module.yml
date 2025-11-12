@@ -1,4 +1,0 @@
-name: zmk-keyboard-custom
-build:
-  settings:
-    board_root: config
