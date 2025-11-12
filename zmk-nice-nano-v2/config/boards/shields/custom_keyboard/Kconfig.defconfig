@@ -1,0 +1,9 @@
+# Copyright (c) 2025
+# SPDX-License-Identifier: MIT
+
+if SHIELD_CUSTOM_KEYBOARD
+
+config ZMK_KEYBOARD_NAME
+	default "Custom Keyboard"
+
+endif

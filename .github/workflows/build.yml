@@ -46,13 +46,13 @@ jobs:
         run: west zephyr-export
 
       - name: West Build (nice_nano_v2)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-nice-nano-v2/config"
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=custom_keyboard -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-nice-nano-v2/config"
 
       - name: Rename artifacts
         run: |
-          mkdir build/artifacts
-          cp build/zephyr/zmk.uf2 build/artifacts/nice_nano_v2.uf2 || true
-          cp build/zephyr/zmk.hex build/artifacts/nice_nano_v2.hex || true
+          mkdir -p build/artifacts
+          cp build/zephyr/zmk.uf2 build/artifacts/custom_keyboard-nice_nano_v2.uf2 || true
+          cp build/zephyr/zmk.hex build/artifacts/custom_keyboard-nice_nano_v2.hex || true
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
