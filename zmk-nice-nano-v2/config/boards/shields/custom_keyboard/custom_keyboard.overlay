@@ -9,6 +9,7 @@
     chosen {
         zmk,kscan = &kscan0;
         zmk,matrix-transform = &default_transform;
+        zmk,physical-layout = &physical_layout;
     };
 
     default_transform: keymap_transform_0 {
@@ -28,6 +29,13 @@
             // Row 5 (12 keys)
             RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,5) RC(4,6) RC(4,7) RC(4,8) RC(4,9) RC(4,10) RC(4,11)
         >;
+    };
+
+    physical_layout: physical_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "Default Layout";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
     };
 
     kscan0: kscan {
