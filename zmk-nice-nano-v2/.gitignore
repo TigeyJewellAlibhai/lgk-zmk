@@ -1,0 +1,40 @@
+# Build artifacts
+build/
+.build/
+*.uf2
+*.hex
+*.bin
+*.elf
+
+# West modules
+.west/
+modules/
+tools/
+zephyr/
+bootloader/
+zmk/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak

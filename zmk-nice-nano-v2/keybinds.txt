@@ -1,0 +1,32 @@
+Here are the keybinds based on rows and columns that pins are assigned to
+
+..  c1  c2  c3  c4  c5  c6  c7  c8  c9  c10 c11 c12
+r1  esc 1   2   3   vld vlu ply 7   8   9   0   bksp
+r2  tab q   w   e   4   5   6   u   i   o   p   \
+r3  clk a   s   d   r   t   y   j   k   l   ent 
+r4  sft z   x   c   f   g   h   m   .   up  sft
+r5  ctl fn  win sp  v   b   n   alt lft dwn rgt
+
+where
+
+r1: P0.10
+r2: P1.11
+r3: P1.13
+r4: P1.15
+r5: P0.02
+
+c1: P1.00
+c2: P0.11
+c3: P1.04
+c4: P0.22
+c5: P0.24
+c6: P1.06
+c7: P0.09
+c8: P1.01
+c9: P1.02
+c10: P0.20
+c11: P0.17
+c12: P1.07
+
+knob 1: P0.29
+knob 2: P0.31

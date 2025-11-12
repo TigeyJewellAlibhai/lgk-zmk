@@ -1,0 +1,6 @@
+# Copyright (c) 2025
+# SPDX-License-Identifier: MIT
+
+include:
+  - board: nice_nano_v2
+    shield: 
