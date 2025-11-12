@@ -25,7 +25,7 @@ jobs:
       - name: Fetch Build Matrix
         id: set-matrix
         run: |
-          matrix=$(yaml2json zmk-nice-nano-v2/build.yaml | jq -c .)
+          matrix=$(yaml2json build.yaml | jq -c .)
           echo "matrix=$matrix" >> $GITHUB_OUTPUT
           echo "Generated matrix:"
           echo "$matrix" | jq .
@@ -54,14 +54,14 @@ jobs:
             zephyr/
             bootloader/
             zmk/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('zmk-nice-nano-v2/west.yml') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('config/west.yml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
       - name: West Init
-        run: west init -l zmk-nice-nano-v2
+        run: west init -l config
 
       - name: West Update
         run: west update
@@ -74,10 +74,10 @@ jobs:
         run: |
           if [ -n "${{ matrix.shield }}" ]; then
             west build -s zmk/app -b ${{ matrix.board }} -- -DSHIELD=${{ matrix.shield }} \
-              -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-nice-nano-v2/config"
+              -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           else
             west build -s zmk/app -b ${{ matrix.board }} -- \
-              -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-nice-nano-v2/config"
+              -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
           fi
 
       - name: Rename artifacts
