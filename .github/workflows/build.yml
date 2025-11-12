@@ -46,7 +46,7 @@ jobs:
       - name: Cache west modules
         uses: actions/cache@v4
         env:
-          cache-name: cache-zephyr-modules
+          cache-name: cache-zephyr-modules-v2
         with:
           path: |
             modules/
