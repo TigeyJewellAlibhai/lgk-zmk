@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: West Init
-        run: west init -l config
+        run: west init -l zmk-nice-nano-v2
 
       - name: West Update
         run: west update
@@ -46,7 +46,7 @@ jobs:
         run: west zephyr-export
 
       - name: West Build (nice_nano_v2)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b nice_nano_v2 -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-nice-nano-v2/config"
 
       - name: Rename artifacts
         run: |
