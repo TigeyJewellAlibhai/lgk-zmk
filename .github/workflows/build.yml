@@ -1,127 +1,14 @@
-name: Build ZMK Firmwarename: Build ZMK Firmwarename: Build ZMK Firmware
-
-
+﻿name: Build ZMK Firmware
 
 on:
-
   push:
-
-    branches:on:on:
-
-      - main
-
-  pull_request:  push:  push:
-
     branches:
-
-      - main    branches:    branches:
-
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
-      - main      - main
-
 jobs:
-
-  build:  pull_request:  pull_request:
-
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-
-    branches:    branches:
-
-      - main      - main
-
-  workflow_dispatch:  workflow_dispatch:
-
-
-
-jobs:jobs:
-
-  build:  matrix:
-
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main    runs-on: ubuntu-latest
-
-    name: Fetch Build Keyboards
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install yaml2json
-        run: python3 -m pip install remarshal
-
-      - name: Fetch Build Matrix
-        id: set-matrix
-        run: |
-          matrix=$(yaml2json build.yaml | jq -c .)
-          echo "matrix=$matrix" >> $GITHUB_OUTPUT
-          echo "Generated matrix:"
-          echo "$matrix" | jq .
-
   build:
-    runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:stable
-    needs: matrix
-    name: Build
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Cache west modules
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-zephyr-modules-v2
-        with:
-          path: |
-            modules/
-            tools/
-            zephyr/
-            bootloader/
-            zmk/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('west.yml') }}
-
-      - name: West Init
-        run: |
-          west init -l .
-          west list
-
-      - name: West Update
-        run: |
-          west update
-          west list
-
-      - name: West Zephyr export
-        run: west zephyr-export
-
-      - name: West Build (${{ matrix.board }}${{ matrix.shield && format(' - {0}', matrix.shield) || '' }})
-        shell: sh -x {0}
-        run: |
-          if [ -n "${{ matrix.shield }}" ]; then
-            west build -s zmk/app -b ${{ matrix.board }} -- -DSHIELD=${{ matrix.shield }} \
-              -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          else
-            west build -s zmk/app -b ${{ matrix.board }} -- \
-              -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-          fi
-
-      - name: Rename artifacts
-        shell: sh -x {0}
-        run: |
-          mkdir -p build/artifacts
-          if [ -f build/zephyr/zmk.uf2 ]; then
-            if [ -n "${{ matrix.shield }}" ]; then
-              cp build/zephyr/zmk.uf2 "build/artifacts/${{ matrix.shield }}-${{ matrix.board }}.uf2"
-            else
-              cp build/zephyr/zmk.uf2 "build/artifacts/${{ matrix.board }}.uf2"
-            fi
-          fi
-
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: firmware-${{ matrix.board }}${{ matrix.shield && format('-{0}', matrix.shield) || '' }}
-          path: build/artifacts
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
