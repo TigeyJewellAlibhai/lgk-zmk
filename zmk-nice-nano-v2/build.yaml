@@ -4,10 +4,4 @@
 include:
   - board: nice_nano_v2
     shield: custom_keyboard
-  - board: nice_nano_v2
-    # No shield - just test the board
-  - board: nice_nano
-    # Test with v1 board definition
 
-
- 
