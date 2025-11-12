@@ -57,10 +57,14 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('west.yml') }}
 
       - name: West Init
-        run: west init -l .
+        run: |
+          west init -l .
+          west list
 
       - name: West Update
-        run: west update
+        run: |
+          west update
+          west list
 
       - name: West Zephyr export
         run: west zephyr-export
