@@ -1,16 +1,30 @@
-name: Build ZMK Firmwarename: Build ZMK Firmware
+name: Build ZMK Firmwarename: Build ZMK Firmwarename: Build ZMK Firmware
 
 
 
-on:on:
+on:
 
-  push:  push:
+  push:
 
-    branches:    branches:
+    branches:on:on:
+
+      - main
+
+  pull_request:  push:  push:
+
+    branches:
+
+      - main    branches:    branches:
+
+  workflow_dispatch:
 
       - main      - main
 
-  pull_request:  pull_request:
+jobs:
+
+  build:  pull_request:  pull_request:
+
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
 
     branches:    branches:
 
