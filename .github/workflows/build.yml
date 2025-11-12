@@ -10,11 +10,35 @@ on:
   workflow_dispatch:
 
 jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    name: Fetch Build Keyboards
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yaml2json
+        run: python3 -m pip install remarshal
+
+      - name: Fetch Build Matrix
+        id: set-matrix
+        run: |
+          matrix=$(yaml2json zmk-nice-nano-v2/build.yaml | jq -c .)
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+          echo "Generated matrix:"
+          echo "$matrix" | jq .
+
   build:
     runs-on: ubuntu-latest
     container:
       image: zmkfirmware/zmk-build-arm:stable
+    needs: matrix
     name: Build
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.matrix.outputs.matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,7 +54,7 @@ jobs:
             zephyr/
             bootloader/
             zmk/
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('manifest-dir/west.yml') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('zmk-nice-nano-v2/west.yml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
@@ -45,17 +69,31 @@ jobs:
       - name: West Zephyr export
         run: west zephyr-export
 
-      - name: West Build (nice_nano_v2)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=custom_keyboard -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-nice-nano-v2/config"
+      - name: West Build (${{ matrix.board }}${{ matrix.shield && format(' - {0}', matrix.shield) || '' }})
+        shell: sh -x {0}
+        run: |
+          if [ -n "${{ matrix.shield }}" ]; then
+            west build -s zmk/app -b ${{ matrix.board }} -- -DSHIELD=${{ matrix.shield }} \
+              -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-nice-nano-v2/config"
+          else
+            west build -s zmk/app -b ${{ matrix.board }} -- \
+              -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-nice-nano-v2/config"
+          fi
 
       - name: Rename artifacts
+        shell: sh -x {0}
         run: |
           mkdir -p build/artifacts
-          cp build/zephyr/zmk.uf2 build/artifacts/custom_keyboard-nice_nano_v2.uf2 || true
-          cp build/zephyr/zmk.hex build/artifacts/custom_keyboard-nice_nano_v2.hex || true
+          if [ -f build/zephyr/zmk.uf2 ]; then
+            if [ -n "${{ matrix.shield }}" ]; then
+              cp build/zephyr/zmk.uf2 "build/artifacts/${{ matrix.shield }}-${{ matrix.board }}.uf2"
+            else
+              cp build/zephyr/zmk.uf2 "build/artifacts/${{ matrix.board }}.uf2"
+            fi
+          fi
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
+          name: firmware-${{ matrix.board }}${{ matrix.shield && format('-{0}', matrix.shield) || '' }}
           path: build/artifacts
