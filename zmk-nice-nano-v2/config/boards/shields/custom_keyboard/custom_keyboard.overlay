@@ -5,12 +5,13 @@
 
 / {
     chosen {
-        zmk,kscan = &kscan0;
+        // Temporarily disable kscan for testing
+        // zmk,kscan = &kscan0;
     };
 
+    /* Commenting out kscan temporarily to test if it's causing boot issues
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
         
         diode-direction = "col2row";
         
@@ -37,4 +38,5 @@
             , <&gpio1 7  GPIO_ACTIVE_HIGH>  // c12: P1.07
             ;
     };
+    */
 };
