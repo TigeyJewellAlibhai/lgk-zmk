@@ -55,10 +55,6 @@ jobs:
             bootloader/
             zmk/
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('west.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
 
       - name: West Init
         run: west init -l .

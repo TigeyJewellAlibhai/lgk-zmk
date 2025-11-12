@@ -1,0 +1,14 @@
+# West managed directories
+zephyr/
+modules/
+tools/
+bootloader/
+zmk/
+
+# Build artifacts
+build/
+.west/
+
+# OS files
+.DS_Store
+Thumbs.db
