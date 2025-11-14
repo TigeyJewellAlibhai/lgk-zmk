@@ -10,10 +10,10 @@ r5  ctl fn  win sp  v   b   n   alt lft dwn rgt
 where
 
 r1: P0.10
-r2: P1.13
-r3: P1.15
-r4: P0.02
-r5: P1.11
+r2: P1.11
+r3: P1.13
+r4: P1.15
+r5: P0.02
 
 c1: P1.00
 c2: P0.11
