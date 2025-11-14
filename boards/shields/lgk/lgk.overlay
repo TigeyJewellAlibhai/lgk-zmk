@@ -54,11 +54,11 @@
         // Therefore: SWAP - physical ROWS in row-gpios (outputs), physical COLS in col-gpios (inputs)
         
         row-gpios
-            = <&gpio0 10 GPIO_ACTIVE_LOW>  // Physical r1: P0.10 (nfc2) ✓
-            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r2: P0.02 (was showing as dead at r4)
-            , <&gpio1 11 GPIO_ACTIVE_LOW>  // Physical r3: P1.11 (was showing as r2→r3)
-            , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r4: P1.13 (was showing as r3→r4)
-            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r5: P1.15 ✓
+            = <&gpio0 10 GPIO_ACTIVE_LOW>  // Physical r1: P0.10 (nfc2) ✓ confirmed
+            , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r2: P1.13 (was showing at firmware r4)
+            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r3: P1.15 (was showing at firmware r5)
+            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r4: P0.02 (was dead at firmware r2)
+            , <&gpio1 11 GPIO_ACTIVE_LOW>  // Physical r5: P1.11 (was showing at firmware r3)
             ;
         
         col-gpios
