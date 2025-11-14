@@ -1,9 +1,9 @@
 # Copyright (c) 2025
 # SPDX-License-Identifier: MIT
 
-if SHIELD_CUSTOM_KEYBOARD
+if SHIELD_LGK
 
 config ZMK_KEYBOARD_NAME
-	default "Custom Keyboard"
+	default "LGK Keyboard"
 
 endif

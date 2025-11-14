@@ -1,5 +1,0 @@
-# Copyright (c) 2025
-# SPDX-License-Identifier: MIT
-
-config SHIELD_CUSTOM_KEYBOARD
-	def_bool $(shields_list_contains,custom_keyboard)

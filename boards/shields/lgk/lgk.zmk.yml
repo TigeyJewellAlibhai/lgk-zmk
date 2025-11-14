@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: MIT
 
 file_format: "1"
-id: custom_keyboard
-name: Custom Keyboard
+id: lgk
+name: LGK Keyboard
 type: shield
 url: https://github.com/TigeyJewellAlibhai/lgk-zmk
 requires: [pro_micro]
