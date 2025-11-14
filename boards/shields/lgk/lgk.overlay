@@ -51,10 +51,10 @@
         
         row-gpios
             = <&gpio0 10 GPIO_ACTIVE_LOW>  // Physical r1: P0.10
-            , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r2: P1.13 (was r3)
-            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r3: P1.15 (was r4)
-            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r4: P0.02 (was r5)
-            , <&gpio1 11 GPIO_ACTIVE_LOW>  // Physical r5: P1.11 (was r2)
+            , <&gpio0 29 GPIO_ACTIVE_LOW>  // Physical r2: P0.29 (test - was knob1)
+            , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r3: P1.13
+            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r4: P1.15
+            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r5: P0.02
             ;
         
         col-gpios
