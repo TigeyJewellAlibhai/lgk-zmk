@@ -22,3 +22,8 @@ include:
   - board: nice_nano
     shield: custom_keyboard
 
+  # -------------------
+  # Your keyboards here
+  # -------------------
+  - board: nice_nano_v2 # Replace with the Pro Micro-compatible board you're using
+    shield: tester_pro_micro
