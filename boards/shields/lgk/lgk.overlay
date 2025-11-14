@@ -51,10 +51,10 @@
         
         row-gpios
             = <&gpio0 10 GPIO_ACTIVE_LOW>  // Physical r1: P0.10
-            , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r2: P1.13 (was r3)
-            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r3: P1.15 (was r4)
-            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r4: P0.02 (was r5)
-            , <&gpio1 11 GPIO_ACTIVE_LOW>  // Physical r5: P1.11 (was r2)
+            , <&gpio0 9  GPIO_ACTIVE_LOW>  // Physical r2: P0.09 (swapped from c12)
+            , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r3: P1.13
+            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r4: P1.15
+            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r5: P0.02
             ;
         
         col-gpios
@@ -64,12 +64,12 @@
             , <&gpio1 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c4 (3): P1.06
             , <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c5 (vold): P0.24
             , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c6 (volup): P0.22
-            , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c7 (play): P0.20 (was c10)
-            , <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c8 (7): P0.17 (was c11)
-            , <&gpio1 7  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c9 (8): P1.07 (was c12)
-            , <&gpio1 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c10 (9): P1.02 (was c9)
-            , <&gpio1 1  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c11 (0): P1.01 (was c8)
-            , <&gpio0 9  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c12 (bksp): P0.09 (was c7)
+            , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c7 (play): P0.20
+            , <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c8 (7): P0.17
+            , <&gpio1 7  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c9 (8): P1.07
+            , <&gpio1 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c10 (9): P1.02
+            , <&gpio1 1  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c11 (0): P1.01
+            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c12 (bksp): P1.11 (swapped from r2)
             ;
     };
 };
