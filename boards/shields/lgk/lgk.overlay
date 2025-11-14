@@ -58,18 +58,18 @@
             ;
         
         col-gpios
-            = <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c1: P1.00 (read as input, pulled HIGH)
-            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c2: P0.11
-            , <&gpio1 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c3: P1.04
-            , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c4: P0.22
-            , <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c5: P0.24
-            , <&gpio1 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c6: P1.06
-            , <&gpio0 9  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c7: P0.09
-            , <&gpio1 1  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c8: P1.01
-            , <&gpio1 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c9: P1.02
-            , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c10: P0.20
-            , <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c11: P0.17
-            , <&gpio1 7  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c12: P1.07
+            = <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c1 (esc): P1.00
+            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c2 (1): P0.11
+            , <&gpio1 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c3 (2): P1.04
+            , <&gpio1 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c4 (3): P1.06 (was c6)
+            , <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c5 (vold): P0.24
+            , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c6 (volup): P0.22 (was c4)
+            , <&gpio0 9  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c7 (play): P0.09
+            , <&gpio1 1  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c8 (7): P1.01
+            , <&gpio1 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c9 (8): P1.02
+            , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c10 (9): P0.20
+            , <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c11 (0): P0.17
+            , <&gpio1 7  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c12 (bksp): P1.07
             ;
     };
 };
