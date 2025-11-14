@@ -55,7 +55,7 @@
         
         row-gpios
             = <&gpio0 10 GPIO_ACTIVE_LOW>  // Physical r1: P0.10 (nfc2) ✓ confirmed
-            , <&gpio0 6  GPIO_ACTIVE_LOW>  // Physical r2: P0.06 (SOLDERED FROM P1.11 - P1.11 is broken)
+            , <&gpio0 6  GPIO_ACTIVE_LOW>  // Physical r2: P0.06 (SOLDERED FROM P1.11)
             , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r3: P1.13
             , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r4: P1.15
             , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r5: P0.02
