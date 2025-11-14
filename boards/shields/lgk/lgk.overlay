@@ -57,8 +57,8 @@
             = <&gpio0 10 GPIO_ACTIVE_LOW>  // Physical r1: P0.10 (nfc2)
             , <&gpio1 11 GPIO_ACTIVE_LOW>  // Physical r2: P1.11 (TEST with slow scan - low freq pin)
             , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r3: P1.13
-            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r4: P1.15
-            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r5: P0.02
+            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r4: P0.02 (swapped with r5)
+            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r5: P1.15 (swapped with r4)
             ;
         
         col-gpios
