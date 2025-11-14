@@ -42,10 +42,11 @@
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
         
-        diode-direction = "row2col";
+        diode-direction = "col2row";
         
-        // Diodes: anode at row, cathode at column
-        // row2col: drive cols (outputs), read rows (inputs with pulldown)
+        // CONFIRMED: Diode cathode (white line) points to ROWS
+        // Current flows: COLUMN (anode) → ROW (cathode)
+        // col2row: columns are outputs (driven), rows are inputs (pull-down)
         
         col-gpios
             = <&gpio1 0  GPIO_ACTIVE_HIGH>  // c1: P1.00
