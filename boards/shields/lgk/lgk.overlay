@@ -14,20 +14,20 @@
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
-        columns = <5>;   // Physical rows = devicetree cols (for row2col)
-        rows = <12>;     // Physical cols = devicetree rows (for row2col)
+        columns = <12>;  // Physical cols (12 pins in col-gpios)
+        rows = <5>;      // Physical rows (5 pins in row-gpios)
         
         map = <
             // Row 1: esc 1 2 3 vld vlu ply 7 8 9 0 bksp (12 keys - uses all columns)
-            RC(0,0) RC(1,0) RC(2,0) RC(3,0) RC(4,0) RC(5,0) RC(6,0) RC(7,0) RC(8,0) RC(9,0) RC(10,0) RC(11,0)
+            RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5) RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11)
             // Row 2: tab q w e 4 5 6 u i o p \ (12 keys - uses all columns)
-            RC(0,1) RC(1,1) RC(2,1) RC(3,1) RC(4,1) RC(5,1) RC(6,1) RC(7,1) RC(8,1) RC(9,1) RC(10,1) RC(11,1)
+            RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5) RC(1,6) RC(1,7) RC(1,8) RC(1,9) RC(1,10) RC(1,11)
             // Row 3: clk a s d r t y j k l ent (11 keys - no c12)
-            RC(0,2) RC(1,2) RC(2,2) RC(3,2) RC(4,2) RC(5,2) RC(6,2) RC(7,2) RC(8,2) RC(9,2) RC(10,2)
+            RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10)
             // Row 4: sft z x c f g h m . up sft (11 keys - no c12)
-            RC(0,3) RC(1,3) RC(2,3) RC(3,3) RC(4,3) RC(5,3) RC(6,3) RC(7,3) RC(8,3) RC(9,3) RC(10,3)
+            RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10)
             // Row 5: ctl fn win sp v b n alt lft dwn rgt (11 keys - no c12)
-            RC(0,4) RC(1,4) RC(2,4) RC(3,4) RC(4,4) RC(5,4) RC(6,4) RC(7,4) RC(8,4) RC(9,4) RC(10,4)
+            RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,5) RC(4,6) RC(4,7) RC(4,8) RC(4,9) RC(4,10)
         >;
     };
 
@@ -44,33 +44,32 @@
         
         diode-direction = "row2col";
         
-        // row2col: ZMK drives row-gpios as outputs, reads col-gpios as inputs
-        // Physical: cathode→rows, anode→cols, need current row→col when key pressed
-        // ACTIVE_LOW: outputs driven LOW, inputs pulled HIGH
-        // When key pressed: current flows col(3.3V pulled up) → diode → row(0V driven) 
-        // Input voltage drops from 3.3V to ~0.6V (better detection than 1.7V with ACTIVE_HIGH)
+        // CRITICAL: row2col means ZMK drives "row-gpios" as outputs, reads "col-gpios" as inputs
+        // Physical wiring: cathode→rows, anode→columns
+        // For current to flow col→row, we need columns as inputs (source), rows as outputs (sink)
+        // Therefore: SWAP - physical ROWS in row-gpios (outputs), physical COLS in col-gpios (inputs)
         
         row-gpios
-            = <&gpio1 0  GPIO_ACTIVE_LOW>   // Physical c1: P1.00 (driven LOW to sink current)
-            , <&gpio0 11 GPIO_ACTIVE_LOW>   // Physical c2: P0.11
-            , <&gpio1 4  GPIO_ACTIVE_LOW>   // Physical c3: P1.04
-            , <&gpio0 22 GPIO_ACTIVE_LOW>   // Physical c4: P0.22
-            , <&gpio0 24 GPIO_ACTIVE_LOW>   // Physical c5: P0.24
-            , <&gpio1 6  GPIO_ACTIVE_LOW>   // Physical c6: P1.06
-            , <&gpio0 9  GPIO_ACTIVE_LOW>   // Physical c7: P0.09
-            , <&gpio1 1  GPIO_ACTIVE_LOW>   // Physical c8: P1.01
-            , <&gpio1 2  GPIO_ACTIVE_LOW>   // Physical c9: P1.02
-            , <&gpio0 20 GPIO_ACTIVE_LOW>   // Physical c10: P0.20
-            , <&gpio0 17 GPIO_ACTIVE_LOW>   // Physical c11: P0.17
-            , <&gpio1 7  GPIO_ACTIVE_LOW>   // Physical c12: P1.07
+            = <&gpio0 10 GPIO_ACTIVE_LOW>  // Physical r1: P0.10 (driven LOW to sink current)
+            , <&gpio1 11 GPIO_ACTIVE_LOW>  // Physical r2: P1.11
+            , <&gpio1 13 GPIO_ACTIVE_LOW>  // Physical r3: P1.13
+            , <&gpio1 15 GPIO_ACTIVE_LOW>  // Physical r4: P1.15
+            , <&gpio0 2  GPIO_ACTIVE_LOW>  // Physical r5: P0.02
             ;
         
         col-gpios
-            = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r1: P0.10 (read as input, pulled HIGH)
-            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r2: P1.11
-            , <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r3: P1.13
-            , <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r4: P1.15
-            , <&gpio0 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r5: P0.02
+            = <&gpio1 0  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c1: P1.00 (read as input, pulled HIGH)
+            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c2: P0.11
+            , <&gpio1 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c3: P1.04
+            , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c4: P0.22
+            , <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c5: P0.24
+            , <&gpio1 6  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c6: P1.06
+            , <&gpio0 9  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c7: P0.09
+            , <&gpio1 1  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c8: P1.01
+            , <&gpio1 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c9: P1.02
+            , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c10: P0.20
+            , <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c11: P0.17
+            , <&gpio1 7  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>   // Physical c12: P1.07
             ;
     };
 };
