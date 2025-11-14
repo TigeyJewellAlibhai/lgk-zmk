@@ -46,29 +46,31 @@
         
         // row2col: ZMK drives row-gpios as outputs, reads col-gpios as inputs
         // Physical: cathode→rows, anode→cols, need current row→col when key pressed
-        // Solution: Physical columns in row-gpios (driven HIGH), physical rows in col-gpios (read with pull-down)
+        // ACTIVE_LOW: outputs driven LOW, inputs pulled HIGH
+        // When key pressed: current flows col(3.3V pulled up) → diode → row(0V driven) 
+        // Input voltage drops from 3.3V to ~0.6V (better detection than 1.7V with ACTIVE_HIGH)
         
         row-gpios
-            = <&gpio1 0  GPIO_ACTIVE_HIGH>   // Physical c1: P1.00 (driven HIGH to push current)
-            , <&gpio0 11 GPIO_ACTIVE_HIGH>   // Physical c2: P0.11
-            , <&gpio1 4  GPIO_ACTIVE_HIGH>   // Physical c3: P1.04
-            , <&gpio0 22 GPIO_ACTIVE_HIGH>   // Physical c4: P0.22
-            , <&gpio0 24 GPIO_ACTIVE_HIGH>   // Physical c5: P0.24
-            , <&gpio1 6  GPIO_ACTIVE_HIGH>   // Physical c6: P1.06
-            , <&gpio0 9  GPIO_ACTIVE_HIGH>   // Physical c7: P0.09
-            , <&gpio1 1  GPIO_ACTIVE_HIGH>   // Physical c8: P1.01
-            , <&gpio1 2  GPIO_ACTIVE_HIGH>   // Physical c9: P1.02
-            , <&gpio0 20 GPIO_ACTIVE_HIGH>   // Physical c10: P0.20
-            , <&gpio0 17 GPIO_ACTIVE_HIGH>   // Physical c11: P0.17
-            , <&gpio1 7  GPIO_ACTIVE_HIGH>   // Physical c12: P1.07
+            = <&gpio1 0  GPIO_ACTIVE_LOW>   // Physical c1: P1.00 (driven LOW to sink current)
+            , <&gpio0 11 GPIO_ACTIVE_LOW>   // Physical c2: P0.11
+            , <&gpio1 4  GPIO_ACTIVE_LOW>   // Physical c3: P1.04
+            , <&gpio0 22 GPIO_ACTIVE_LOW>   // Physical c4: P0.22
+            , <&gpio0 24 GPIO_ACTIVE_LOW>   // Physical c5: P0.24
+            , <&gpio1 6  GPIO_ACTIVE_LOW>   // Physical c6: P1.06
+            , <&gpio0 9  GPIO_ACTIVE_LOW>   // Physical c7: P0.09
+            , <&gpio1 1  GPIO_ACTIVE_LOW>   // Physical c8: P1.01
+            , <&gpio1 2  GPIO_ACTIVE_LOW>   // Physical c9: P1.02
+            , <&gpio0 20 GPIO_ACTIVE_LOW>   // Physical c10: P0.20
+            , <&gpio0 17 GPIO_ACTIVE_LOW>   // Physical c11: P0.17
+            , <&gpio1 7  GPIO_ACTIVE_LOW>   // Physical c12: P1.07
             ;
         
         col-gpios
-            = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Physical r1: P0.10 (read as input)
-            , <&gpio1 11 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Physical r2: P1.11
-            , <&gpio1 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Physical r3: P1.13
-            , <&gpio1 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Physical r4: P1.15
-            , <&gpio0 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  // Physical r5: P0.02
+            = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r1: P0.10 (read as input, pulled HIGH)
+            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r2: P1.11
+            , <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r3: P1.13
+            , <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r4: P1.15
+            , <&gpio0 2  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // Physical r5: P0.02
             ;
     };
 };
